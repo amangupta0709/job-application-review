@@ -1,5 +1,6 @@
-from backend.main.models import Candidate
 from rest_framework import serializers
+
+from main.models import Candidate
 
 # PRIMARY_ROLE_CHOICES = (
 #     ("Full-Stack Engineer", "full-stack-engineer"),

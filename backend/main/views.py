@@ -1,11 +1,13 @@
-from backend.main.models import Candidate
-from backend.main.serializer import ApplicationListSerializer, ApplicationSerializer
 from django.db import transaction
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from main.models import Candidate
+from main.serializer import ApplicationListSerializer, ApplicationSerializer
 
 
-class AllApplicationAPIView:
+class AllApplicationAPIView(APIView):
     def get(self, request, *args):
 
         objs = Candidate.objects.all()
@@ -26,7 +28,7 @@ class AllApplicationAPIView:
         return Response({"message": "data created"}, status=status.HTTP_201_CREATED)
 
 
-class CandidateApplicationAPIView:
+class CandidateApplicationAPIView(APIView):
     # get application detail view
     def get(self, request, *args, **kwargs):
         candidate_id = kwargs.get("pk")
