@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+import AddCandidateView from "./components/AddCandidate";
 import AppList from "./components/AppList";
+import CandidateView from "./components/CandidateView";
 import NavBar from "./components/NavBar";
 function App() {
   return (
@@ -11,11 +13,26 @@ function App() {
             path="/"
             element={
               <div>
-                {/* <ProtectedRoute> */}
                 <NavBar />
-                {/* <Dashboard /> */}
                 <AppList />
-                {/* </ProtectedRoute> */}
+              </div>
+            }
+          />
+          <Route
+            path="/candidate/:id"
+            element={
+              <div>
+                <NavBar />
+                <CandidateView />
+              </div>
+            }
+          />
+          <Route
+            path="/addcandidate"
+            element={
+              <div>
+                <NavBar />
+                <AddCandidateView />
               </div>
             }
           />

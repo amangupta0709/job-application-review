@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import transaction
 from rest_framework import status
 from rest_framework.response import Response
@@ -19,6 +21,28 @@ class AllApplicationAPIView(APIView):
     @transaction.atomic
     def post(self, request):
         data = request.data.get("data")
+        try:
+            validate_email(data["email"])
+        except ValidationError as e:
+            return Response(
+                {"message": "invalid email"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if len(data["mobile"]) > 10:
+            return Response(
+                {"message": "mobile greater than 10 digits"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if Candidate.objects.filter(email=data["email"]).exists():
+            return Response(
+                {"message": "email already registered"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        elif Candidate.objects.filter(mobile=data["mobile"]).exists():
+            return Response(
+                {"message": "mobile already registered"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
             obj = Candidate(**data)
             obj.save()

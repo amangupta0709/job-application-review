@@ -21,7 +21,9 @@ class Candidate(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, blank=True)
     primary_role = models.CharField(
-        max_length=50, choices=PRIMARY_ROLE_CHOICES, default="full-stack-engineer"
+        max_length=50,
+        choices=PRIMARY_ROLE_CHOICES,
+        default="full-stack-engineer",
     )
     experience = models.CharField(max_length=1024, blank=True)
     skills = models.TextField(max_length=1024, blank=True, null=True)
